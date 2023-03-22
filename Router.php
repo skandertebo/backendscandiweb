@@ -2,7 +2,7 @@
 class Router
 {
   private $routes;
-  private $baseRoute = '/backendTestScandiweb';
+  private $baseRoute = '/';
   public function __construct()
   {
     $routes = [];
@@ -14,7 +14,8 @@ class Router
 
   public function handleRequest($method, $fullPath)
   {
-    $path = str_replace($this->baseRoute, '', $fullPath);
+    //$path = str_replace($this->baseRoute, '', $fullPath);
+    $path = $fullPath;
     $path = explode('?', $path)[0];
 
 

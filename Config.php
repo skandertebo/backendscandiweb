@@ -26,7 +26,7 @@ class Config
     if ($mode == 'DEV') {
       $this->con = new mysqli("localhost", "root", "root", "scandiwebtest");
     } else if ($mode == 'PROD') {
-      $this->con = new mysqli("localhost", "id20460491_scandiwebtestdbskandertebo", "ipq=K*?K>pV8_9WJ", "id20460491_scandiwebtestdb");
+      $this->con = new mysqli("localhost", "id20460491_scandiwebtestdbskandertebo", "u+FXj7vFn4f&3DC~", "id20460491_scandiwebtestdb");
     } else {
       die("Invalid mode");
     }

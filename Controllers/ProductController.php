@@ -30,7 +30,7 @@ class ProductController
       $specialProps['width'] = $_POST['width'];
       $specialProps['length'] = $_POST['length'];
     }
-    $product = ProductFactory::create($_POST['type'], $_POST['sku'], $_POST['name'], $_POST['price'], $specialProps);
+    $product = ProductFactory::create(-1, $_POST['type'], $_POST['sku'], $_POST['name'], $_POST['price'], $specialProps);
     if ($product->saveProduct()) {
       http_response_code(201);
       echo json_encode(array("message" => "Success"));

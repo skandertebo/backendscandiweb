@@ -21,6 +21,8 @@ class Application
     header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
     header('Access-Control-Allow-Headers: Role ,Content-Type,Origin, accept');
     header('Access-Control-Allow-Credentials:true');
+    header("Content-Type: application/json");
+
 
     function autoloadModel($className)
     {

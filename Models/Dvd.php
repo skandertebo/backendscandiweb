@@ -2,11 +2,17 @@
 class Dvd extends Product
 {
   private $size;
-  public function __construct($id, $sku, $name, $price, $size)
+  public function __construct($id, $sku, $name, $price, $specialProps)
   {
+    if(empty($specialProps['size']))
+    {
+      die("Size is required");
+    }
+    $size = $specialProps['size'];
     parent::__construct($id, $sku, $name, $price);
     $this->size = $size;
   }
+
   public function getSize()
   {
     return $this->size;
@@ -20,7 +26,10 @@ class Dvd extends Product
     $result = parent::p_loadProducts("dvd");
     $data = array();
     while ($result && $row = $result->fetch_assoc()) {
-      $data[] = get_object_vars(new Dvd($row["id"], $row["sku"], $row["name"], $row["price"], $row["size"]));
+      $specialProps = array(
+        "size" => $row["size"]
+      );
+      $data[] = get_object_vars(new Dvd($row["id"], $row["sku"], $row["name"], $row["price"], $specialProps));
     }
     return $data;
   }

@@ -11,25 +11,10 @@ class ProductController
 
   public function store()
   {
-    $specialProps = array();
-    if ($_POST['type'] == "dvd") {
-      if (empty($_POST['size'])) {
-        die("Size is required");
-      }
-      $specialProps['size'] = $_POST['size'];
-    } else if ($_POST['type'] == "book") {
-      if (empty($_POST['weight'])) {
-        die("Weight is required");
-      }
-      $specialProps['weight'] = $_POST['weight'];
-    } else if ($_POST['type'] == "furniture") {
-      if (empty($_POST['height']) || empty($_POST['width']) || empty($_POST['length'])) {
-        die("Height, Width and Length are required");
-      }
-      $specialProps['height'] = $_POST['height'];
-      $specialProps['width'] = $_POST['width'];
-      $specialProps['length'] = $_POST['length'];
+    if (empty($_POST['type']) || empty($_POST['sku']) || empty($_POST['name']) || empty($_POST['price'])) {
+      die("Type, sku, name and price are required");
     }
+    $specialProps = $_POST;
     $product = ProductFactory::create(-1, $_POST['type'], $_POST['sku'], $_POST['name'], $_POST['price'], $specialProps);
     if ($product->saveProduct()) {
       http_response_code(201);

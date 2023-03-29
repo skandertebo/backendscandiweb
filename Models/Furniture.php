@@ -6,8 +6,20 @@ class Furniture extends Product
   private $length;
   private $width;
   private $height;
-  public function __construct($id, $sku, $name, $price, $length, $width, $height)
+  public function __construct($id, $sku, $name, $price, $specialProps)
   {
+    if (empty($specialProps['length'])) {
+      die("Length is required");
+    }
+    if (empty($specialProps['width'])) {
+      die("Width is required");
+    }
+    if (empty($specialProps['height'])) {
+      die("Height is required");
+    }
+    $length = $specialProps['length'];
+    $width = $specialProps['width'];
+    $height = $specialProps['height'];
     parent::__construct($id, $sku, $name, $price);
     $this->length = $length;
     $this->width = $width;
@@ -43,7 +55,12 @@ class Furniture extends Product
     $result = parent::p_loadProducts("furniture");
     $data = array();
     while ($result && $row = $result->fetch_assoc()) {
-      $data[] = get_object_vars(new Furniture($row["id"], $row["sku"], $row["name"], $row["price"], $row["length"], $row["width"], $row["height"]));
+      $specialProps = array(
+        "length" => $row["length"],
+        "width" => $row["width"],
+        "height" => $row["height"]
+      );
+      $data[] = get_object_vars(new Furniture($row["id"], $row["sku"], $row["name"], $row["price"], $specialProps));
     }
     return $data;
   }

@@ -2,8 +2,13 @@
 class Book extends Product
 {
   private $weight;
-  public function __construct($id, $sku, $name, $price, $weight)
+  public function __construct($id, $sku, $name, $price, $specialProps)
   {
+    if(empty($specialProps['weight']))
+    {
+      die("Weight is required");
+    }
+    $weight = $specialProps['weight'];
     parent::__construct($id, $sku, $name, $price);
     $this->weight = $weight;
   }
@@ -22,7 +27,10 @@ class Book extends Product
     $result = parent::p_loadProducts("book");
     $data = array();
     while ($result && $row = $result->fetch_assoc()) {
-      $data[] = get_object_vars(new Book($row["id"], $row["sku"], $row["name"], $row["price"], $row["weight"]));
+      $specialProps = array(
+        "weight" => $row["weight"]
+      );
+      $data[] = get_object_vars(new Book($row["id"], $row["sku"], $row["name"], $row["price"], $specialProps));
     }
     return $data;
   }
